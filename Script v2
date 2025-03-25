@@ -1,0 +1,125 @@
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Parent = player:WaitForChild("PlayerGui")
+gui.Name = "CustomGUI"
+gui.ResetOnSpawn = false
+
+-- **GUI Ana Çerçeve (Sürüklenebilir)**
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 300)
+frame.Position = UDim2.new(0.5, -125, 0.5, -150)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.BorderSizePixel = 0
+frame.Parent = gui
+frame.Active = true
+frame.Draggable = true
+
+-- **Oval Yapma (CornerRadius kullanarak)**
+local cornerRadius = Instance.new("UICorner")
+cornerRadius.CornerRadius = UDim.new(0, 30)
+cornerRadius.Parent = frame
+
+-- **Yeni Başlık (BilinmezOyuncu V2)**
+local title = Instance.new("TextLabel")
+title.Text = "BilinmezOyuncu V2"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 18
+title.Font = Enum.Font.SourceSansBold
+title.Parent = frame
+
+-- **Rastgele Buton Rengi (Sarı ve mor hariç)**
+local function randomColor()
+    local colors = {
+        Color3.fromRGB(255, 0, 0), 
+        Color3.fromRGB(0, 255, 0), 
+        Color3.fromRGB(0, 0, 255), 
+        Color3.fromRGB(255, 165, 0), 
+        Color3.fromRGB(128, 0, 128)
+    }
+    return colors[math.random(1, #colors)]
+end
+
+-- **Buton Oluşturma**
+local function createButton(text, pos, callback)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, 100, 0, 40)
+    button.Position = pos
+    button.BackgroundColor3 = randomColor()
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Text = text
+    button.TextSize = 14
+    button.Parent = frame
+    button.MouseButton1Click:Connect(callback)
+
+    -- Oval Buton
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0, 15)
+    corner.Parent = button
+end
+
+-- **Disco Efekti**
+local function discoEffect()
+    while true do
+        game.Lighting.Ambient = Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
+        task.wait(0.5)
+    end
+end
+
+-- **Message Spam**
+local function spamMessage()
+    task.spawn(function()
+        while true do
+            task.wait(1)  
+            local message = Instance.new("Message")
+            message.Parent = workspace
+            message.Text = "Bilinmez - GUEST BOAM!"
+            task.wait(1)
+            message:Destroy()
+        end
+    end)
+end
+
+-- **Hint Mesajı**
+local function showHint()
+    if workspace:FindFirstChild("HintMessage") then return end
+    local hint = Instance.new("Hint")
+    hint.Name = "HintMessage"
+    hint.Parent = workspace
+    hint.Text = "Bilinmez seni bekler"
+end
+
+-- **Music Theme**
+local function playMusic()
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://4809574295"  -- Ses ID'si 4809574295
+    sound.Volume = 99999  -- Ses seviyesi
+    sound.Looped = true
+    sound.Parent = workspace
+    sound:Play()
+end
+
+-- **Butonları GUI'ye ekle**
+createButton("Disco", UDim2.new(0.1, 0, 0.3, 0), discoEffect)
+createButton("Message", UDim2.new(0.55, 0, 0.3, 0), spamMessage)
+createButton("Hint", UDim2.new(0.1, 0, 0.5, 0), showHint)
+createButton("Music Theme", UDim2.new(0.55, 0, 0.5, 0), playMusic)
+
+-- **Kapatma Butonu**
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -35, 0, 5)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.Text = "X"
+closeButton.TextSize = 18
+closeButton.Parent = frame
+closeButton.MouseButton1Click:Connect(function()
+    gui:Destroy()  -- GUI'yi kapat
+end)
+
+-- **Oval Kapatma Butonu**
+local cornerClose = Instance.new("UICorner")
+cornerClose.CornerRadius = UDim.new(0, 15)
+cornerClose.Parent = closeButton
