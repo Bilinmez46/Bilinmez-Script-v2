@@ -57,19 +57,19 @@ local function createButton(text, pos, callback)
     corner.CornerRadius = UDim.new(0, 15)  
     corner.Parent = button  
 end  
-  
--- **Disco Efekti (Güncellendi, parlaklık 1000)**  
+
+-- **Disco Efekti (Parlaklık 10)**  
 local function discoEffect()  
-    while true do
-        wait(0.5)
-        game.Lighting.Ambient = Color3.new(math.random(), math.random(), math.random())
-        game.Lighting.ColorShift_Top = Color3.new(math.random(), math.random(), math.random())
-        game.Lighting.ColorShift_Bottom = Color3.new(math.random(), math.random(), math.random())
-        game.Lighting.ShadowColor = Color3.new(math.random(), math.random(), math.random())
-        game.Lighting.Brightness = 1000  -- **Parlaklık 1000**
-    end
+    while true do  
+        wait(0.5)  
+        game.Lighting.Ambient = Color3.new(math.random(), math.random(), math.random())  
+        game.Lighting.ColorShift_Top = Color3.new(math.random(), math.random(), math.random())  
+        game.Lighting.ColorShift_Bottom = Color3.new(math.random(), math.random(), math.random())  
+        game.Lighting.ShadowColor = Color3.new(math.random(), math.random(), math.random())  
+        game.Lighting.Brightness = 10  -- **Parlaklık 10**
+    end  
 end  
-  
+
 -- **Message Spam**  
 local function spamMessage()  
     task.spawn(function()  
@@ -96,20 +96,11 @@ end
 -- **Ses Açma Butonu (Music Theme)**  
 local function playMusic()  
     local sound = Instance.new("Sound")  
-    sound.SoundId = "rbxassetid://1848354536"  -- Güncellenmiş Ses ID  
-    sound.Volume = 999999  -- Yüksek Ses Seviyesi  
+    sound.SoundId = "rbxassetid://73966367524216"  -- Güncellenmiş Ses ID  
+    sound.Volume = 99999  -- Yüksek Ses Seviyesi  
     sound.Looped = true  
     sound.Parent = workspace  
     sound:Play()  
-end  
-
--- **Tüm Eşya Alma Fonksiyonu**  
-local function giveAllItems()  
-    for _, tool in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do  
-        if tool:IsA("Tool") then  
-            tool:Clone().Parent = player.Backpack  
-        end  
-    end  
 end  
 
 -- **Butonları GUI'ye ekle**  
@@ -117,7 +108,6 @@ createButton("Disco", UDim2.new(0.1, 0, 0.3, 0), discoEffect)
 createButton("Message", UDim2.new(0.55, 0, 0.3, 0), spamMessage)  
 createButton("Hint", UDim2.new(0.1, 0, 0.5, 0), showHint)  
 createButton("Music Theme", UDim2.new(0.55, 0, 0.5, 0), playMusic)  
-createButton("Tüm Eşyayı Al", UDim2.new(0.1, 0, 0.7, 0), giveAllItems)  -- **Yeni buton**  
 
 -- **Kapatma Butonu**  
 local closeButton = Instance.new("TextButton")  
@@ -131,7 +121,7 @@ closeButton.Parent = frame
 closeButton.MouseButton1Click:Connect(function()  
     gui:Destroy()  
 end)  
-
+  
 local cornerClose = Instance.new("UICorner")  
 cornerClose.CornerRadius = UDim.new(0, 15)  
 cornerClose.Parent = closeButton
